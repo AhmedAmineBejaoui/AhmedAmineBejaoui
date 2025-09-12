@@ -12,9 +12,14 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
-      - uses: yoshi389111/github-profile-3d-contrib@master
+
+      - name: Generate 3D Contribution Graph
+        uses: yoshi389111/github-profile-3d-contrib@0.7.1
         with:
-          OWNER: AhmedAmineBejaoui
+          USERNAME: AhmedAmineBejaoui
+          SETTINGS: "-l 10 --yearly"   # 10 dernières lignes, mode annuel
+          OUTPUT_PATH: ./profile-3d-contrib
+
       - name: Push
         run: |
           git config user.name github-actions
