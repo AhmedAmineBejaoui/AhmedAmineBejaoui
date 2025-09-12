@@ -1,0 +1,24 @@
+name: 3D Contributions
+
+on:
+  schedule:
+    - cron: "0 1 * * *"   # 1x par jour
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: yoshi389111/github-profile-3d-contrib@master
+        with:
+          OWNER: AhmedAmineBejaoui
+      - name: Push
+        run: |
+          git config user.name github-actions
+          git config user.email actions@github.com
+          git add -A
+          git commit -m "chore: update 3d contributions" || echo "no changes"
+          git push
