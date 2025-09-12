@@ -11,16 +11,17 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Generate 3D Contribution Graph
         uses: yoshi389111/github-profile-3d-contrib@0.7.1
-        with:
-          USERNAME: AhmedAmineBejaoui
-          SETTINGS: "-l 10 --yearly"   # 10 dernières lignes, mode annuel
-          OUTPUT_PATH: ./profile-3d-contrib
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # <— requis
+          USERNAME: AhmedAmineBejaoui                 # <— ton username
+          OUTPUT_PATH: ./profile-3d-contrib           # dossier de sortie
+          SETTINGS: "-l 10 --yearly"                  # options (facultatif)
 
-      - name: Push
+      - name: Push generated files
         run: |
           git config user.name github-actions
           git config user.email actions@github.com
